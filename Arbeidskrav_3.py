@@ -26,19 +26,9 @@ class heated_tank:
         pass
     
     def plotting(self):
-        # Initialising the subplots
-        fig, ax = plt.subplots(1,2)
-        # Creating a plot for temperature over time
-
-
-        # Creating a plot for P over time
-
-
-        # Plotting in subplots
-
-        ax[0,0].plot(self.T) # First row and first coloumn
-        ax[0,0].plot(self.P) # First row and second coloumn
-        plt.show()
+       plt.figure()
+       plt.subplot(211)
+       plt.plot()
 
 
         
