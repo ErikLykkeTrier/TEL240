@@ -26,7 +26,7 @@ class heated_tank:
         print(self.P)
 
     def simulation(self):
-        dt = 700
+        dt = 1
         t_start = 0
         t_stop= 10000
         N_sim = int((t_stop-t_start)/dt)+1
