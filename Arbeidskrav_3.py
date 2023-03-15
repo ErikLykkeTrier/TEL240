@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 class heated_tank:
     def __init__(self, P, T, T_init, T_env, T_in, T_set, Q, F, c, p, V, m, G, Tau):
@@ -20,11 +21,27 @@ class heated_tank:
 
     def constant_power(self):
         P_0 = (self.T_set-self.T_in)*(self.m*self.c)/self.G
-        print(P_0)
-    
+        self.P = P_0    
     def temperature(self):
         pass
+    
+    def plotting(self):
+        # Initialising the subplots
+        fig, ax = plt.subplots(1,2)
+        # Creating a plot for temperature over time
 
+
+        # Creating a plot for P over time
+
+
+        # Plotting in subplots
+
+        ax[0,0].plot(self.T,self.T_in, self.T_env,'C') # First row and first coloumn
+        ax[0,0].plot(self.P,'P') # First row and second coloumn
+        plt.show()
+
+
+        
 
 if __name__=="__main__":
     hei = heated_tank(0, 0, 20, 20, 20,25,0.25*10**(-3),0.25, 4200, 1000, 0.2,200,100,60)
