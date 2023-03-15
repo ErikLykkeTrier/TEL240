@@ -46,3 +46,4 @@ class heated_tank:
 if __name__=="__main__":
     hei = heated_tank(0, 0, 20, 20, 20,25,0.25*10**(-3),0.25, 4200, 1000, 0.2,200,100,60)
     hei.constant_power()
+    hei.plotting
