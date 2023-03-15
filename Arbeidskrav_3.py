@@ -20,17 +20,16 @@ class heated_tank:
         self.Tau = Tau  # Time delay
 
     def constant_power(self):
-        P_0 = -(self.c*self.p*self.Q*(self.T_in-self.T_set)) + self.G*(self.T_env-self.T_set)
+        P_0 = -(self.c*self.p*self.Q*(self.T_in-self.T_set) + self.G*(self.T_env-self.T_set))
 
         self.P = P_0    
         print(self.P)
-    def temperature(self):
-        pass
+
     def simulation(self):
         dt = 700
         t_start = 0
         t_stop= 10000
-        N_sim = int((t_stop-t_start))
+        N_sim = int((t_stop-t_start)/dt)+1
 
         t_array = np.zeros(N_sim)
         T_array = np.zeros(N_sim)
@@ -49,21 +48,24 @@ class heated_tank:
             P_k = self.P
             T_in_k = self.T_in
             T_env_k = self.T_env
-            t_array[k] = t_k
-            T_array[k] = T_k
-            T_in_array[k] = T_in_k
-            T_env_array[k] = T_env_k
-            P_array[k] = P_k
+            t_array[ k ] = t_k
+            T_array[ k ] = T_k
+            T_in_array[ k ] = T_in_k
+            T_env_array[ k ] = T_env_k
+            P_array[ k ] = P_k
             # Time derivative :
-            dT_dt_k = ((1 / ( self.c * self.p * self.V )) * (P_k + ( self.c * self.p * self.Q ) * ( self.T_in - T_k ) + self.G * ( self.T_env - T_k )))
+            dT_dt_k = ((1/( self.c * self.p * self.V )) * (P_k + ( self.c * self.p * self.Q ) * ( self.T_in - T_k ) + self.G * ( self.T_env - T_k )))
             T_kp1 = T_k + dt * dT_dt_k
             # Time index shift :
             T_k = T_kp1
-        plt.subplot(2 , 1 , 1)
-        print(T_array)
-        plt.plot(t_array, T_array, "r", label = "T")
-        plt.plot(t_array, T_in_array, "b", label = "T_in")
-        plt.plot(t_array, T_env_array, "g", label = "T_env")
+
+        
+        plt.close("all")
+        plt.figure(1)
+        plt.subplot(2, 1, 1)
+        plt.plot(t_array, T_array , "r", label="T")
+        plt.plot(t_array, T_in_array , "b", label="T_in")
+        plt.plot(t_array, T_env_array , "g", label="T_env")
         plt.legend()
         plt.grid()
         plt.xlabel("t[s]")
@@ -74,6 +76,7 @@ class heated_tank:
         plt.grid()
         plt.xlabel("t[s]")
         plt.ylabel("[W]")
+        plt.savefig("plot_sim_heated_tank_3.pdf")
         plt.show()
 
         # plt . savefig ( " plot_sim_heated_tank_2 . pdf ")

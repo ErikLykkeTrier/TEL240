@@ -41,10 +41,7 @@ for k in range (0 , N_sim ):
     T_env_array [ k ] = T_env_k
     P_array [ k ] = P_k
     # Time derivative :
-    dT_dt_k = ((1/( c * rho * V ))
-    *( P_k
-    + ( c * rho * F )*( T_in - T_k )
-    + U *( T_env - T_k )))
+    dT_dt_k = ((1/( c * rho * V ))*( P_k + ( c * rho * F )*( T_in - T_k ) + U *( T_env - T_k )))
     T_kp1 = T_k + dt * dT_dt_k
     # Time index shift :
     T_k = T_kp1
@@ -65,5 +62,5 @@ plt.legend()
 plt.grid()
 plt.xlabel("t[s]")
 plt.ylabel("[W]")
-plt.savefig("plot_sim_heated_tank_3.pdf")
+#plt.savefig("plot_sim_heated_tank_3.pdf")
 plt.show()
