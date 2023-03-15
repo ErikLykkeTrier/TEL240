@@ -27,16 +27,16 @@ class heated_tank:
     def temperature(self):
         pass
     def simulation(self):
-        dt = 1
+        dt = 700
         t_start = 0
-        t_stop= 100
+        t_stop= 10000
         N_sim = int((t_stop-t_start))
 
         t_array = np.zeros(N_sim)
         T_array = np.zeros(N_sim)
-        T_in_array = np . zeros ( N_sim )
-        T_env_array = np . zeros ( N_sim )
-        P_array = np . zeros ( N_sim )
+        T_in_array = np.zeros(N_sim)
+        T_env_array = np.zeros(N_sim)
+        P_array = np.zeros(N_sim)
 
         T_min = 0
         T_max = 100
@@ -44,30 +44,46 @@ class heated_tank:
         T_k = self.T_init 
         for k in range (0 , N_sim):
             # State limitation :
-            T_k = np.clip(T_k, T_min , T_max )
+            T_k = np.clip(T_k, T_min , T_max)
             t_k = k * dt
             P_k = self.P
             T_in_k = self.T_in
             T_env_k = self.T_env
-            t_array [ k ] = t_k
-            T_array [ k ] = T_k
-            T_in_array [ k ] = T_in_k
-            T_env_array [ k ] = T_env_k
-            P_array [ k ] = P_k
+            t_array[k] = t_k
+            T_array[k] = T_k
+            T_in_array[k] = T_in_k
+            T_env_array[k] = T_env_k
+            P_array[k] = P_k
             # Time derivative :
-            dT_dt_k = ((1/( self.c * self.p * self.V ))*(P_k + ( self.c * self.p * self.Q )*( self.T_in - T_k ) + self.G *( self.T_env - T_k )))
+            dT_dt_k = ((1 / ( self.c * self.p * self.V )) * (P_k + ( self.c * self.p * self.Q ) * ( self.T_in - T_k ) + self.G * ( self.T_env - T_k )))
             T_kp1 = T_k + dt * dT_dt_k
             # Time index shift :
             T_k = T_kp1
+        plt.subplot(2 , 1 , 1)
+        print(T_array)
+        plt.plot(t_array, T_array, "r", label = "T")
+        plt.plot(t_array, T_in_array, "b", label = "T_in")
+        plt.plot(t_array, T_env_array, "g", label = "T_env")
+        plt.legend()
+        plt.grid()
+        plt.xlabel("t[s]")
+        plt.ylabel("[deg C]")
+        plt.subplot(2, 1, 2)
+        plt.plot(t_array, P_array, "m", label="P")
+        plt.legend()
+        plt.grid()
+        plt.xlabel("t[s]")
+        plt.ylabel("[W]")
+        plt.show()
+
+        # plt . savefig ( " plot_sim_heated_tank_2 . pdf ")
 
 
 
-
-    def plotting(self):
-        pass
 
         
 
 if __name__=="__main__":
-    hei = heated_tank(0, 0, 20, 20, 20,25,0.25*10**(-3),0.25, 4200, 1000, 0.2,200,100,60)
+    hei = heated_tank(0, 0, 20, 20, 20, 25, 0.25 * 10**(-3), 0.25, 4200, 1000, 0.2, 200, 100, 60)
     hei.constant_power()
+    hei.simulation()
