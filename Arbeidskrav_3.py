@@ -3,22 +3,26 @@ import numpy as np
 
 class heated_tank:
     def __init__(self, P, T, T_init, T_env, T_in, T_set, Q, F, c, p, V, m, G, Tau):
-        self.P = P        
-        self.T = T
-        self.T_init = T_init
-        self.T_env = T_env
-        self.T_in = T_in
-        self.T_set = T_set
-        self.Q = Q
-        self.F = F
-        self.c = c
-        self.p = p
-        self.V = V
-        self.m = m
-        self.G = G
-        self.Tau = Tau
+        self.P = P      # Effekten til oppvarming av vannet i tanken     
+        self.T = T      # Faktiske temperaturen til vannet i tanken
+        self.T_init = T_init # Initial temperature
+        self.T_env = T_env   # Enviromental temperature
+        self.T_in = T_in     # Temperature of liquid inflow
+        self.T_set = T_set   # Set point for temp out of tank
+        self.Q = Q      # Liquid Volumetric flow
+        self.F = F      # Liquid mass flow
+        self.c = c      # Spesific heat capacity of liquid
+        self.p = p      # Density of liquid
+        self.V = V      # Liquid volume in tank
+        self.m = m      # Liquid mass in tank
+        self.G = G      # Heat transfer coefficient of tank
+        self.Tau = Tau  # Time delay
 
     def constant_power(self):
+        P_0 = (self.T_set-self.T_in)*(self.m*self.c)/self.G
+        print(P_0)
+    
+    def temperature(self):
         pass
 
 
